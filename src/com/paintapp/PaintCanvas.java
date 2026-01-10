@@ -1,5 +1,6 @@
 package com.paintapp;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -7,7 +8,7 @@ import java.util.Stack;
 import javax.imageio.ImageIO;
 import java.io.*;
 
-public class PaintCanvas extends Canvas implements MouseListener, MouseMotionListener {
+public class PaintCanvas extends JPanel implements MouseListener, MouseMotionListener {
     
     public interface ToolChangeListener {
         void toolChanged(Tool newTool);
@@ -33,6 +34,7 @@ public class PaintCanvas extends Canvas implements MouseListener, MouseMotionLis
 
     public PaintCanvas() {
         setPreferredSize(new Dimension(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT));
+        setBackground(Constants.DEFAULT_BG);
         initImage();
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -118,7 +120,6 @@ public class PaintCanvas extends Canvas implements MouseListener, MouseMotionLis
     public void setFontStyle(int style) { this.fontStyle = style; }
     public String getFontName() { return fontName; }
 
-
     public void newFile() {
         initImage();
         repaint();
@@ -141,14 +142,9 @@ public class PaintCanvas extends Canvas implements MouseListener, MouseMotionLis
         ImageIO.write(image, "PNG", f);
     }
 
-    // Painting logic
     @Override
-    public void update(Graphics g) {
-        paint(g);
-    }
-
-    @Override
-    public void paint(Graphics g) {
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         ensureImageMatchesCanvasSize();
         g.drawImage(image, 0, 0, this);
 
@@ -179,7 +175,6 @@ public class PaintCanvas extends Canvas implements MouseListener, MouseMotionLis
             g2.dispose();
         }
     }
-
 
     private void commitShape() {
         Graphics2D g = image.createGraphics();

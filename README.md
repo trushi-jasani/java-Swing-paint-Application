@@ -1,6 +1,6 @@
-# 🎨 Java AWT Paint Application
+# 🎨 Java Swing–based  Paint Application
 
-A lightweight and classic drawing application built using **Java AWT**. Create and edit raster images with essential drawing tools, shapes, text, color selection, and undo/redo support.
+A lightweight and classic drawing application built using **Java Swing**. Create and edit raster images with essential drawing tools, shapes, text, color selection, and undo/redo support.
 
 ---
 
